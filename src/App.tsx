@@ -1,25 +1,33 @@
 import React from 'react';
-import logo from './logo.svg';
+import RouteGuard from "@features/Router/components/RouteGuard";
+import Routes from "@features/Router/components/Routes";
 import './App.css';
 
 function App() {
+  const initialized = true;
+  const authenticated = true;
+
+  const routeTypes = [
+      {
+          type: "public",
+          guard: undefined
+      },
+      {
+          type: "private",
+          guard: (element: unknown) => <RouteGuard
+              initialized={initialized}
+              authenticated={authenticated}
+              redirectPath={'/login'}
+              element={element}
+              loadingComponent={null}
+          />
+      }
+  ];
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+        <Routes types={routeTypes} />
+    </>
   );
 }
 
