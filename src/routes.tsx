@@ -1,5 +1,8 @@
-import {setRoutes} from "@features/Router";
+import {setRoutes, setTypeRoutes} from "@features/Router";
 import IndexPage from "@pages/IndexPage";
+
+// demo
+import DemoInfiniteScroll from "@pages/_demo/InfiniteScroll";
 
 setRoutes(
     [
@@ -10,3 +13,10 @@ setRoutes(
         }
     ]
 );
+
+setTypeRoutes('_demo', [
+    {
+        path: '/_demo/infinite-scroll',
+        element: <><DemoInfiniteScroll /></>
+    }
+]);

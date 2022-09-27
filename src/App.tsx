@@ -8,10 +8,7 @@ function App() {
   const authenticated = true;
 
   const routeTypes = [
-      {
-          type: "public",
-          guard: undefined
-      },
+      { type: "public" },
       {
           type: "private",
           guard: (element: unknown) => <RouteGuard
@@ -21,7 +18,8 @@ function App() {
               element={element}
               loadingComponent={null}
           />
-      }
+      },
+      { type: "_demo" },
   ];
 
   return (
