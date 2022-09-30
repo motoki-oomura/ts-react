@@ -1,4 +1,4 @@
-import {useCallback, useMemo, useState} from "react";
+import {useCallback, useMemo, useRef, useState} from "react";
 import {ApiContextValue, isApiError, Status, useApiContext} from "@features/Api";
 import {Options} from "ky";
 import {KyInstance} from "ky/distribution/types/ky";
@@ -6,37 +6,45 @@ import {Input} from "ky/distribution/types/options";
 
 type HttpClientMethod = KyInstance['get'] | KyInstance['post'] | KyInstance['put'] | KyInstance['delete'] | KyInstance['head'] | KyInstance['patch'];
 
-type HookOptions = {
-    onError?: ApiContextValue['onError'],
-    onUnauthorized?: ApiContextValue['onUnauthorized'],
-    onTimeout?: ApiContextValue['onUnauthorized']
-};
+export type UseApiHookOptions = Partial<{
+    onError: ApiContextValue['onError'],
+    onUnauthorized: ApiContextValue['onUnauthorized'],
+    onTimeout: ApiContextValue['onUnauthorized'],
+    onAbort: (error: unknown) => void;
+}>;
 
-const useApi = <T = unknown>({ onError, onUnauthorized, onTimeout}: HookOptions) => {
+const useApi = <T = unknown>({ onError, onUnauthorized, onTimeout, onAbort }: UseApiHookOptions = {}) => {
     const {
         client,
         onError: onErrorGlobal,
         onUnauthorized: onUnauthorizedGlobal,
-        onTimeout: onTimeoutGlobal
+        onTimeout: onTimeoutGlobal,
     } = useApiContext();
     const [loading, setLoading] = useState(false);
     const [data, setData] = useState<T | null>(null);
     const [status, setStatus] = useState<number | null>(null);
     const [error, setError] = useState<unknown | null>(null);
-    const abortController = useMemo(() => new AbortController(), [client]); // canceller
+    const abortControllerRef = useRef(new AbortController());
 
-    const reset = () => useCallback(() => {
+    const reset = useCallback(() => {
         setData(null);
         setStatus(null);
         setError(null);
     },[]);
-    const cancel = () => useCallback(() => abortController.abort(), [abortController]);
+    const cancel = useCallback(() => {
+        abortControllerRef.current.abort();
+    }, []);
 
     const callApi = useCallback(async (fn: HttpClientMethod, path: Input, options: Options = {}) => {
         setLoading(true);
         let data = null;
-        const response = await fn(path, { signal: abortController.signal, ...options});
-        const { ok, status } = response;
+        abortControllerRef.current = new AbortController();
+        const response = await fn(path, { signal: abortControllerRef.current.signal, ...options})
+            .catch(e => {
+                if (e.name === 'AbortError' && onAbort) onAbort(e);
+                return null;
+            });
+        const { ok, status } = response ?? {};
         if (response && status) {
             data = await response.json<T>();
             ok ? setData(data) : setError(data);
@@ -58,12 +66,12 @@ const useApi = <T = unknown>({ onError, onUnauthorized, onTimeout}: HookOptions)
 
         return {
             ok,
-            status,
-            data: !isApiError(status) ? data : null,
-            error: !isApiError(status) ? null : data,
+            status: status ?? null,
+            data: status && !isApiError(status) ? data : null,
+            error: status && !isApiError(status) ? null : data,
         };
 
-    }, [abortController]);
+    }, []);
 
     const api = useMemo(() => {
         return {
