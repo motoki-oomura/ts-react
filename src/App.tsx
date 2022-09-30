@@ -2,6 +2,7 @@ import React from 'react';
 import RouteGuard from "@features/Router/components/RouteGuard";
 import Routes from "@features/Router/components/Routes";
 import './App.css';
+import ApiProvider from "@features/Api/providers/ApiProvider";
 
 function App() {
   const initialized = true;
@@ -24,7 +25,9 @@ function App() {
 
   return (
     <>
-        <Routes types={routeTypes} />
+        <ApiProvider config={{}}>
+            <Routes types={routeTypes} />
+        </ApiProvider>
     </>
   );
 }
