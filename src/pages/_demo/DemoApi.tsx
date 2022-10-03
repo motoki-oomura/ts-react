@@ -1,7 +1,5 @@
 import React from 'react';
 import _DemoPageLayout from "@pages/_demo/_DemoPageLayout";
-import useApi from "@features/Api/hooks/useApi";
-import useEffectOnce from "@hooks/useEffectOnce";
 import useGetApiCall from "@features/Api/hooks/useGetApiCall";
 
 const Async:React.FC<{ loading: boolean, children: React.ReactNode, fallback?: React.ReactNode }> = (props) => {

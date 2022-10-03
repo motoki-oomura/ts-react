@@ -5,19 +5,19 @@ import {Navigate} from "react-router-dom";
 type Props = {
   initialized: boolean;
   authenticated: boolean | null;
-  loadingComponent: ReactNode;
+  loader: ReactNode;
   redirectPath: string;
   element: unknown;
 };
 
 const RouteGuard: FC<Props> = (props) => {
-    const { initialized = true, loadingComponent = <></>, authenticated = null, redirectPath, element } = props;
+    const { initialized = true, loader = <></>, authenticated = null, redirectPath, element } = props;
 
     /**
      * 初期化中ならローディング画面を見せる
      */
     if (!initialized) {
-        return <>{ loadingComponent }</>;
+        return <>{ loader }</>;
     }
 
     /**

@@ -3,10 +3,11 @@ import RouteGuard from "@features/Router/components/RouteGuard";
 import Routes from "@features/Router/components/Routes";
 import './App.css';
 import ApiProvider from "@features/Api/providers/ApiProvider";
+import useAuth from "@features/Auth/hooks/useAuth";
+import useEffectOnce from "@hooks/useEffectOnce";
 
 function App() {
-  const initialized = true;
-  const authenticated = true;
+    const { initialized, authenticated, authenticate, deauthenticate } = useAuth();
 
   const routeTypes = [
       { type: "public" },
@@ -17,11 +18,16 @@ function App() {
               authenticated={authenticated}
               redirectPath={'/login'}
               element={element}
-              loadingComponent={null}
+              loader={null}
           />
       },
       { type: "_demo" },
   ];
+
+  // 初回認証
+  useEffectOnce(() => {
+    authenticate();
+  });
 
   return (
     <>

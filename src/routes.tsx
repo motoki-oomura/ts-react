@@ -5,6 +5,7 @@ import IndexPage from "@pages/IndexPage";
 import DemoInfiniteScroll from "@pages/_demo/DemoInfiniteScroll";
 import DemoPortal from "@pages/_demo/DemoPortal";
 import DemoApi from "@pages/_demo/DemoApi";
+import DemoPagination from "@pages/_demo/DemoPagination";
 
 setRoutes(
     [
@@ -28,5 +29,9 @@ setTypeRoutes('_demo', [
     {
         path: '/_demo/api',
         element: <><DemoApi /></>
+    },
+    {
+        path: '/_demo/pagination',
+        element: <><DemoPagination /></>
     }
 ]);
