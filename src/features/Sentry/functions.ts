@@ -1,5 +1,5 @@
-import * as Sentry from "@sentry/react";
-import {CaptureContext} from "@sentry/types";
+import * as Sentry from '@sentry/react';
+import { CaptureContext } from '@sentry/types';
 
 // Sentryへ送信するか否か
 let sentryEnable = false;

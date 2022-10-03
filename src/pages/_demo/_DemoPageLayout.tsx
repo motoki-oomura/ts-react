@@ -8,8 +8,8 @@ const _DemoPageLayout: React.FC<Props> = (props) => {
     return (
         <div>
             <h1>Demo Page</h1>
-            { children }
+            {children}
         </div>
-    )
+    );
 };
 export default _DemoPageLayout;

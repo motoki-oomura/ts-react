@@ -13,12 +13,18 @@ type Props = {
     onError: () => void;
 };
 const ErrorBouncy: React.FC<Props> = (props) => {
-    const { children, fallback = DefaultFallbackComponent, onError = () => { /* do nothing. */ } } = props;
+    const {
+        children,
+        fallback = DefaultFallbackComponent,
+        onError = () => {
+            /* do nothing. */
+        },
+    } = props;
 
     return (
         <Sentry.ErrorBoundary fallback={fallback} onError={onError}>
-            { children }
+            {children}
         </Sentry.ErrorBoundary>
-    )
+    );
 };
 export default ErrorBouncy;

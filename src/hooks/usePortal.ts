@@ -1,5 +1,5 @@
-import React, {useCallback, useEffect, useRef, useState} from "react";
-import ReactDOM from "react-dom";
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import ReactDOM from 'react-dom';
 
 /**
  * Portalを簡単に実装するためのフック
@@ -15,10 +15,13 @@ const usePortal = (id = 'unknown', options: Options = {}) => {
     const showPortal = useCallback(() => setIsOpen(true), []);
     const hiddenPortal = useCallback(() => setIsOpen(false), []);
 
-    const renderPortal = useCallback((children: React.ReactNode) => {
-        if (!isOpen) return null;
-        return ref.current && ReactDOM.createPortal(children, ref.current);
-    }, [isOpen]);
+    const renderPortal = useCallback(
+        (children: React.ReactNode) => {
+            if (!isOpen) return null;
+            return ref.current && ReactDOM.createPortal(children, ref.current);
+        },
+        [isOpen]
+    );
 
     useEffect(() => {
         if (ref.current !== null) return;
@@ -32,7 +35,7 @@ const usePortal = (id = 'unknown', options: Options = {}) => {
         return () => {
             ref.current = null;
             document.body.removeChild(el);
-        }
+        };
     }, [id, initView]);
 
     return { renderPortal, showPortal, hiddenPortal };

@@ -1,4 +1,4 @@
-import {EffectCallback, useEffect, useRef} from "react";
+import { EffectCallback, useEffect, useRef } from 'react';
 
 const useEffectOnce = (effectCallback: EffectCallback) => {
     const onceRef = useRef(false);
@@ -9,7 +9,7 @@ const useEffectOnce = (effectCallback: EffectCallback) => {
         return () => {
             onceRef.current = true;
             cleanup && cleanup();
-        }
+        };
     }, []);
 };
 export default useEffectOnce;

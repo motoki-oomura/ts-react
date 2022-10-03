@@ -1,6 +1,6 @@
-import useApi, {UseApiHookOptions} from "@features/Api/hooks/useApi";
-import {Input, Options} from "ky/distribution/types/options";
-import {EffectCallback, useEffect, useRef} from "react";
+import useApi, { UseApiHookOptions } from '@features/Api/hooks/useApi';
+import { Input, Options } from 'ky/distribution/types/options';
+import { EffectCallback, useEffect, useRef } from 'react';
 
 const useEffectOnce = (effectCallback: EffectCallback) => {
     const onceRef = useRef(false);
@@ -11,10 +11,9 @@ const useEffectOnce = (effectCallback: EffectCallback) => {
         return () => {
             onceRef.current = true;
             cleanup && cleanup();
-        }
+        };
     }, []);
 };
-
 
 type UseGetApiCall = Partial<{
     getOptions: Options;
@@ -22,11 +21,11 @@ type UseGetApiCall = Partial<{
 }>;
 
 const useGetApiCall = <T = unknown>(url: Input, options?: UseGetApiCall) => {
-  const { api, ...otherApi} = useApi<T>();
+    const { api, ...otherApi } = useApi<T>();
 
-  useEffectOnce(() => {
-      api.get(url, options?.getOptions);
-  });
-  return otherApi;
+    useEffectOnce(() => {
+        api.get(url, options?.getOptions);
+    });
+    return otherApi;
 };
 export default useGetApiCall;

@@ -1,37 +1,56 @@
-import {setRoutes, setTypeRoutes} from "@features/Router";
-import IndexPage from "@pages/IndexPage";
+import React from 'react';
+import { setRoutes, setTypeRoutes } from '@features/Router';
+import IndexPage from '@pages/IndexPage';
 
 // demo
-import DemoInfiniteScroll from "@pages/_demo/DemoInfiniteScroll";
-import DemoPortal from "@pages/_demo/DemoPortal";
-import DemoApi from "@pages/_demo/DemoApi";
-import DemoPagination from "@pages/_demo/DemoPagination";
+import DemoInfiniteScroll from '@pages/_demo/DemoInfiniteScroll';
+import DemoPortal from '@pages/_demo/DemoPortal';
+import DemoApi from '@pages/_demo/DemoApi';
+import DemoPagination from '@pages/_demo/DemoPagination';
 
-setRoutes(
-    [
-        {
-            type: "public",
-            path: "/",
-            element: <><IndexPage /></>
-        }
-    ]
-);
+setRoutes([
+    {
+        type: 'public',
+        path: '/',
+        element: (
+            <>
+                <IndexPage />
+            </>
+        ),
+    },
+]);
 
 setTypeRoutes('_demo', [
     {
         path: '/_demo/infinite-scroll',
-        element: <><DemoInfiniteScroll /></>
+        element: (
+            <>
+                <DemoInfiniteScroll />
+            </>
+        ),
     },
     {
         path: '/_demo/portal',
-        element: <><DemoPortal /></>
+        element: (
+            <>
+                <DemoPortal />
+            </>
+        ),
     },
     {
         path: '/_demo/api',
-        element: <><DemoApi /></>
+        element: (
+            <>
+                <DemoApi />
+            </>
+        ),
     },
     {
         path: '/_demo/pagination',
-        element: <><DemoPagination /></>
-    }
+        element: (
+            <>
+                <DemoPagination />
+            </>
+        ),
+    },
 ]);

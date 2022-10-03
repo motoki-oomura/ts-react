@@ -7,11 +7,25 @@
     "node": ">= 16.15.0"
   },
   "scripts": {
+    "prepare": "husky install",
     "preinstall": "npx only-allow yarn",
     "start": "vite --mode development",
     "build:stg": "tsc && vite build --mode staging",
     "build:prod": "tsc && vite build --mode production",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "elint": "eslint --ext .ts,.tsx ./src",
+    "elint:fix": "eslint --fix 'src/**/*.{js,jsx,ts,tsx}'",
+    "format": "prettier --write 'src/**/*.{js,jsx,ts,tsx}'",
+    "lint-staged": "lint-staged"
+  },
+  "lint-staged": {
+    "*.{js,ts,jsx,tsx}": [
+      "yarn elint:fix",
+      "yarn format"
+    ],
+    "*.{css,scss}": [
+      "yarn slint:fix"
+    ]
   },
   "dependencies": {
     "@sentry/browser": "^7.13.0",
@@ -26,7 +40,12 @@
     "@types/react-dom": "^18.0.6",
     "@types/react-router-dom": "^5.3.3",
     "@vitejs/plugin-react": "^2.1.0",
+    "eslint": "^8.24.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-react": "^7.31.8",
+    "husky": "^8.0.1",
     "ky": "^0.31.3",
+    "prettier": "^2.7.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.4.1",

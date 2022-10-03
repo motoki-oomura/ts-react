@@ -9,7 +9,7 @@ export const Status = {
     Timeout: 408,
     Conflict: 409,
     PayloadTooLarge: 413,
-    TooManyRequests: 429
+    TooManyRequests: 429,
 };
 
 export const DefaultMessage = {
