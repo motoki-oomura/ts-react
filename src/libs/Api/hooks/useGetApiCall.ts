@@ -1,4 +1,4 @@
-import useApi, { UseApiHookOptions } from '@features/Api/hooks/useApi';
+import useApi, { UseApiHookOptions } from './useApi';
 import { Input, Options } from 'ky/distribution/types/options';
 import { EffectCallback, useEffect, useRef } from 'react';
 

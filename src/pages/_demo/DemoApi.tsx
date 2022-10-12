@@ -1,6 +1,6 @@
 import React from 'react';
 import _DemoPageLayout from '@pages/_demo/_DemoPageLayout';
-import useGetApiCall from '@features/Api/hooks/useGetApiCall';
+import useGetApiCall from '@features/../../libs/Api/hooks/useGetApiCall';
 
 const Async: React.FC<{
     loading: boolean;

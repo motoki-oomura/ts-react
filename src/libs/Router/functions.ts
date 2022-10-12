@@ -1,4 +1,4 @@
-import { Route } from '@features/Router/type';
+import { Route } from './type';
 import { IS_DEVELOPMENT } from '@constants/env';
 
 let routes: Route[] = [];

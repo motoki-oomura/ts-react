@@ -1,7 +1,7 @@
 import React from 'react';
-import { getRoutes } from '@features/Router';
+import { getRoutes } from '../index';
 import { Route, Routes as ReactRoutes } from 'react-router-dom';
-import { Route as RouteType } from '@features/Router';
+import { Route as RouteType } from '../index';
 
 export type Props = {
     types: {

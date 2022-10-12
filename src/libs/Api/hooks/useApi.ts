@@ -4,7 +4,7 @@ import {
     isApiError,
     Status,
     useApiContext,
-} from '@features/Api';
+} from '../index';
 import { Options } from 'ky';
 import { KyInstance } from 'ky/distribution/types/ky';
 import { Input } from 'ky/distribution/types/options';

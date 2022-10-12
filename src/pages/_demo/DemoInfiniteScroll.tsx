@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import _DemoPageLayout from '@pages/_demo/_DemoPageLayout';
 import { wait } from '@utils/misc';
-import InfiniteScroll from '@features/InfiniteScroll/components/InfiniteScroll';
+import InfiniteScroll from '@features/../../libs/InfiniteScroll/components/InfiniteScroll';
 
 async function generateListItem(items: { index: number }[], count: number) {
     await wait(1000);

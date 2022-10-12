@@ -1,6 +1,6 @@
 import React from 'react';
 import { useCallback, useMemo, useState } from 'react';
-import { getPageList } from '@features/Pagination';
+import { getPageList } from '../index';
 
 type RenderPaginateProps = {
     normal: (page: number) => React.ReactNode;
