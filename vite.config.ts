@@ -11,5 +11,6 @@ export default defineConfig({
             host: 'localhost'
         },
     },
+    resolve: {},
     plugins: [react(), tsconfigPaths()]
 })

@@ -5,3 +5,5 @@ public/
 *.config.ts
 .*lintrc.js
 /*.*
+
+!.storybook
