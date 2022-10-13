@@ -21,14 +21,8 @@ const usePagination = (options: UsePaginationOptions) => {
     const [page, onPaginate] = useState(initialPage < 0 ? 0 : initialPage);
     const [viewCount, setViewCount] = useState(initialViewCount);
     const [totalCount, setTotalCount] = useState(0);
-    const pageList = useMemo(
-        () => getPageList(viewCount, totalCount),
-        [totalCount, viewCount]
-    );
-    const startCount = useMemo(
-        () => (page - 1) * viewCount + 1,
-        [page, viewCount]
-    );
+    const pageList = useMemo(() => getPageList(viewCount, totalCount), [totalCount, viewCount]);
+    const startCount = useMemo(() => (page - 1) * viewCount + 1, [page, viewCount]);
     const endCount = useMemo(() => page * viewCount, [page, viewCount]);
 
     const isViewIndex = useCallback(
@@ -40,8 +34,7 @@ const usePagination = (options: UsePaginationOptions) => {
 
     const onNextPaginate = useCallback(
         async (fetchCallback?: (newPage: number) => Promise<unknown>) => {
-            const newPage =
-                pageList.length <= page ? pageList.length : page + 1;
+            const newPage = pageList.length <= page ? pageList.length : page + 1;
             if (newPage === page) return;
             const res = fetchCallback ? await fetchCallback(newPage) : null;
             onPaginate(newPage);
@@ -61,26 +54,15 @@ const usePagination = (options: UsePaginationOptions) => {
         [pageList, page]
     );
 
-    const renderPaginate = ({
-        next,
-        prev,
-        normal,
-        active,
-    }: RenderPaginateProps): React.ReactNode => {
+    const renderPaginate = ({ next, prev, normal, active }: RenderPaginateProps): React.ReactNode => {
         if (pageList.length === 0) return null;
         return (
             <>
-                <React.Fragment key={`pagination_prev`}>
-                    {prev(page)}
-                </React.Fragment>
+                <React.Fragment key={`pagination_prev`}>{prev(page)}</React.Fragment>
                 {pageList.map((p) => (
-                    <React.Fragment key={`pagination_${p}`}>
-                        {p === page ? active(p) : normal(p)}
-                    </React.Fragment>
+                    <React.Fragment key={`pagination_${p}`}>{p === page ? active(p) : normal(p)}</React.Fragment>
                 ))}
-                <React.Fragment key={`pagination_next`}>
-                    {next(page)}
-                </React.Fragment>
+                <React.Fragment key={`pagination_next`}>{next(page)}</React.Fragment>
             </>
         );
     };

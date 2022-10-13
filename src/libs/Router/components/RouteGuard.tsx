@@ -10,13 +10,7 @@ type Props = {
 };
 
 const RouteGuard: FC<Props> = (props) => {
-    const {
-        initialized = true,
-        loader = <></>,
-        authenticated = null,
-        redirectPath,
-        element,
-    } = props;
+    const { initialized = true, loader = <></>, authenticated = null, redirectPath, element } = props;
 
     /**
      * 初期化中ならローディング画面を見せる

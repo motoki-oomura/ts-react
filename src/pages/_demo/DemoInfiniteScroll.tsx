@@ -29,10 +29,7 @@ const DemoInfiniteScroll: React.FC = () => {
     return (
         <_DemoPageLayout>
             demo infinite scroll.
-            <InfiniteScroll
-                loader={<div key={'loader'}>loading...</div>}
-                hasMore={hasMore}
-                loadMore={loadMore}>
+            <InfiniteScroll loader={<div key={'loader'}>loading...</div>} hasMore={hasMore} loadMore={loadMore}>
                 {items.map(({ index }) => (
                     <Item key={index}>{index}</Item>
                 ))}

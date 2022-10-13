@@ -14,13 +14,7 @@ function App() {
         {
             type: 'private',
             guard: (element: unknown) => (
-                <RouteGuard
-                    initialized={initialized}
-                    authenticated={authenticated}
-                    redirectPath={'/login'}
-                    element={element}
-                    loader={null}
-                />
+                <RouteGuard initialized={initialized} authenticated={authenticated} redirectPath={'/login'} element={element} loader={null} />
             ),
         },
         { type: '_demo' },

@@ -12,9 +12,7 @@ const Async: React.FC<{
 
 // https://sampleapis.com/api-list/
 const DemoApi = () => {
-    const { loading, data } = useGetApiCall<unknown[]>(
-        'https://api.sampleapis.com/baseball/hitsSingleSeason'
-    );
+    const { loading, data } = useGetApiCall<unknown[]>('https://api.sampleapis.com/baseball/hitsSingleSeason');
     // const { api, loading, data, cancel } = useApi<unknown[]>();
 
     return (

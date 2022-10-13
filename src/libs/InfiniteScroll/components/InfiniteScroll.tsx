@@ -1,11 +1,4 @@
-import React, {
-    RefObject,
-    useCallback,
-    useLayoutEffect,
-    useMemo,
-    useRef,
-    useState,
-} from 'react';
+import React, { RefObject, useCallback, useLayoutEffect, useMemo, useRef, useState } from 'react';
 
 /**
  * InfiniteScroll Component
@@ -21,23 +14,11 @@ export type Props = {
     threshold?: number;
 };
 const InfiniteScroll: React.FC<Props> = (props) => {
-    const {
-        children,
-        element,
-        hasMore = false,
-        loader = null,
-        pageStart,
-        ref,
-        loadMore,
-        threshold = 250,
-    } = props;
+    const { children, element, hasMore = false, loader = null, pageStart, ref, loadMore, threshold = 250 } = props;
     const [pageLoaded, setPageLoaded] = useState(pageStart ?? 0);
     const [isLoad, setIsLoad] = useState(false);
     const scrollElRef = useRef<HTMLElement | null>(null);
-    const childrenArray = useMemo(
-        () => [children, hasMore ? loader : null],
-        [children, hasMore, loader]
-    );
+    const childrenArray = useMemo(() => [children, hasMore ? loader : null], [children, hasMore, loader]);
 
     const scrollElRefCallback = useCallback((node: HTMLElement | null) => {
         scrollElRef.current = ref?.current ?? node;
@@ -57,10 +38,7 @@ const InfiniteScroll: React.FC<Props> = (props) => {
         if (scrollElRef.current === null) return;
         const scrollEl = window;
         const el = scrollElRef.current;
-        const doc =
-            document.documentElement ||
-            document.body.parentNode ||
-            document.body;
+        const doc = document.documentElement || document.body.parentNode || document.body;
         const scrollTop = scrollEl.scrollY ?? doc.scrollTop;
         const offset = el?.offsetTop + el?.offsetHeight - scrollEl.innerHeight;
         if (scrollTop >= offset - threshold) {

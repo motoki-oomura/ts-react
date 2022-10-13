@@ -4,9 +4,7 @@ import { IS_DEVELOPMENT } from '@constants/env';
 let routes: Route[] = [];
 
 export const getRoutes = (type?: Route['type']) => {
-    const filterRoutes = routes.filter(
-        (r) => IS_DEVELOPMENT || (r.type?.indexOf('_') !== 0 ?? true)
-    );
+    const filterRoutes = routes.filter((r) => IS_DEVELOPMENT || (r.type?.indexOf('_') !== 0 ?? true));
     if (type === undefined) return [...filterRoutes];
     return filterRoutes.filter(({ type: t }) => t === type);
 };

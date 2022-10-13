@@ -29,9 +29,7 @@ type Props = {
 };
 const AuthProvider: React.FC<Props> = (props) => {
     const { children } = props;
-    const [state, setState] = useState<
-        Omit<AuthContextValue, 'authenticate' | 'deauthenticate'>
-    >(DefaultAuthContextValue());
+    const [state, setState] = useState<Omit<AuthContextValue, 'authenticate' | 'deauthenticate'>>(DefaultAuthContextValue());
 
     const authenticate = useCallback((uid = null) => {
         setState((prev) => ({
@@ -51,8 +49,6 @@ const AuthProvider: React.FC<Props> = (props) => {
     }, []);
 
     const value = { ...state, authenticate, deauthenticate };
-    return (
-        <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
-    );
+    return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 export default AuthProvider;

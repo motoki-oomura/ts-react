@@ -1,9 +1,6 @@
 import { useEffect, useState } from 'react';
 
-const useScroll = (
-    element: unknown,
-    options: IntersectionObserverInit = {}
-) => {
+const useScroll = (element: unknown, options: IntersectionObserverInit = {}) => {
     const [isIntersecting, set] = useState(false);
 
     useEffect(() => {

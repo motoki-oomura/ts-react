@@ -17,15 +17,7 @@ const Routes: React.FC<Props> = (props) => {
         <ReactRoutes>
             {types.map(({ type, guard }) =>
                 getRoutes(type).map((routeProps) => (
-                    <Route
-                        key={routeProps.path}
-                        {...routeProps}
-                        element={
-                            guard
-                                ? guard(routeProps.element)
-                                : routeProps.element
-                        }
-                    />
+                    <Route key={routeProps.path} {...routeProps} element={guard ? guard(routeProps.element) : routeProps.element} />
                 ))
             )}
         </ReactRoutes>
