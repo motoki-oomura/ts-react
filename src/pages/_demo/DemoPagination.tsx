@@ -1,8 +1,8 @@
 import React from 'react';
 import _DemoPageLayout from '@pages/_demo/_DemoPageLayout';
-import usePagination from '@features/../../libs/Pagination/hooks/usePagination';
+import usePagination from '@libs/Pagination/hooks/usePagination';
 import useEffectOnce from '@hooks/useEffectOnce';
-import useApi from '@features/../../libs/Api/hooks/useApi';
+import useApi from '@libs/Api/hooks/useApi';
 
 const VIEW_COUNT = 20;
 

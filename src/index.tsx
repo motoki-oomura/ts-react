@@ -5,7 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import './routes';
-import AuthProvider from '@features/libs/Auth/providers/AuthProvider';
+import AuthProvider from '@libs/Auth/providers/AuthProvider';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 

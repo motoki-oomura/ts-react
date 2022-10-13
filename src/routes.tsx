@@ -1,5 +1,5 @@
 import React from 'react';
-import { setRoutes, setTypeRoutes } from '@features/libs/Router';
+import { setRoutes, setTypeRoutes } from '@libs/Router';
 import IndexPage from '@pages/IndexPage';
 
 // demo
