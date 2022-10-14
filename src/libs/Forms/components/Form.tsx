@@ -1,11 +1,11 @@
 import React from 'react';
-import { SubmitHandler, useForm, UseFormProps, UseFormReturn } from 'react-hook-form';
+import { SubmitHandler, useForm, UseFormProps, UseFormReturn, FormProvider } from 'react-hook-form';
 import { ZodType, ZodTypeDef } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 type Props<FormValues, Schema> = {
     className?: string;
-    children: (formMethods: UseFormReturn<FormValues>) => React.ReactNode;
+    children: ((formMethods: UseFormReturn<FormValues>) => React.ReactNode) | React.ReactNode;
     options?: UseFormProps<FormValues>;
     onSubmit: SubmitHandler<FormValues>;
     schema?: Schema;
@@ -20,14 +20,16 @@ export const Form = <
 ) => {
     const { children, options, className, onSubmit, schema, id } = props;
 
-    const formMethods = useForm<FormValues>({
+    const form = useForm<FormValues>({
         ...options,
         resolver: schema && zodResolver(schema),
     });
 
     return (
-        <form className={className} onSubmit={formMethods.handleSubmit(onSubmit)} id={id}>
-            {children(formMethods)}
-        </form>
+        <FormProvider {...form}>
+            <form className={className} onSubmit={form.handleSubmit(onSubmit)} id={id} noValidate>
+                {typeof children === 'function' ? children(form) : children}
+            </form>
+        </FormProvider>
     );
 };

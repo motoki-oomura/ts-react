@@ -7,6 +7,8 @@ import DemoInfiniteScroll from '@pages/_demo/DemoInfiniteScroll';
 import DemoPortal from '@pages/_demo/DemoPortal';
 import DemoApi from '@pages/_demo/DemoApi';
 import DemoPagination from '@pages/_demo/DemoPagination';
+import DemoFormSignUpPage from '@pages/_demo/forms/DemoFormSignUp';
+import DemoFormProfilePage from '@pages/_demo/forms/DemoFormProfile';
 
 setRoutes([
     {
@@ -50,6 +52,22 @@ setTypeRoutes('_demo', [
         element: (
             <>
                 <DemoPagination />
+            </>
+        ),
+    },
+    {
+        path: '/_demo/forms/signup',
+        element: (
+            <>
+                <DemoFormSignUpPage />
+            </>
+        ),
+    },
+    {
+        path: '/_demo/forms/profile',
+        element: (
+            <>
+                <DemoFormProfilePage />
             </>
         ),
     },

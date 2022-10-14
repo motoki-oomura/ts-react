@@ -6,7 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import './routes';
 import AuthProvider from '@libs/Auth/providers/AuthProvider';
-import {HeadProvider} from "@libs/Head";
+import { HeadProvider } from '@libs/Head';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
