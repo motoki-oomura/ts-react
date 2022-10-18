@@ -9,6 +9,7 @@ import DemoApi from '@pages/_demo/DemoApi';
 import DemoPagination from '@pages/_demo/DemoPagination';
 import DemoFormSignUpPage from '@pages/_demo/forms/DemoFormSignUp';
 import DemoFormProfilePage from '@pages/_demo/forms/DemoFormProfile';
+import {DemoI18nPage} from "@pages/_demo/DemoI18n";
 
 setRoutes([
     {
@@ -68,6 +69,14 @@ setTypeRoutes('_demo', [
         element: (
             <>
                 <DemoFormProfilePage />
+            </>
+        ),
+    },
+    {
+        path: '/_demo/i18n',
+        element: (
+            <>
+                <DemoI18nPage />
             </>
         ),
     },
