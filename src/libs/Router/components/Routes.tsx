@@ -1,26 +1,35 @@
-import React from 'react';
-import { getRoutes } from '../index';
-import { Route, Routes as ReactRoutes } from 'react-router-dom';
-import { Route as RouteType } from '../index';
+import React, { Suspense } from 'react';
+import { Route, RouteGuardProps } from '@libs/Router';
+import { RouteGuard } from '@libs/Router';
+import { Route as ReactRoute, Routes as ReactRoutes } from 'react-router-dom';
 
-export type Props = {
-    types: {
-        type: RouteType['type'];
-        guard?: (element: unknown) => React.ReactNode | null;
-    }[];
+export type RoutesProps = Partial<Omit<RouteGuardProps, 'element'>> & {
+    routes: Route[];
+    fallback?: React.ReactNode;
 };
 
-const Routes: React.FC<Props> = (props) => {
-    const { types } = props;
+export const Routes: React.FC<RoutesProps> = (props) => {
+    const { routes, authenticated = true, initialized = true, redirectPath = '/', loader, fallback } = props;
 
     return (
-        <ReactRoutes>
-            {types.map(({ type, guard }) =>
-                getRoutes(type).map((routeProps) => (
-                    <Route key={routeProps.path} {...routeProps} element={guard ? guard(routeProps.element) : routeProps.element} />
-                ))
-            )}
-        </ReactRoutes>
+        <Suspense fallback={fallback}>
+            <ReactRoutes>
+                {routes.map((r) => (
+                    <ReactRoute
+                        key={r.path}
+                        {...r.getProps()}
+                        element={
+                            <RouteGuard
+                                initialized={initialized}
+                                authenticated={authenticated}
+                                loader={loader}
+                                redirectPath={redirectPath}
+                                element={r.element}
+                            />
+                        }
+                    />
+                ))}
+            </ReactRoutes>
+        </Suspense>
     );
 };
-export default Routes;

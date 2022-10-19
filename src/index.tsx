@@ -7,17 +7,17 @@ import { BrowserRouter } from 'react-router-dom';
 import './routes';
 import AuthProvider from '@libs/Auth/providers/AuthProvider';
 import { HeadProvider } from '@libs/Head';
-import {initI18n} from "@libs/I18n";
+import { initI18n } from '@libs/I18n';
 import i18nJa from '@data/i18n/ja.json';
 import i18nEn from '@data/i18n/en.json';
 
 initI18n({
-    fallbackLng: ["ja", "en"],
+    fallbackLng: ['ja', 'en'],
     resources: {
         ja: { translation: i18nJa },
         en: { translation: i18nEn },
-    }
-})
+    },
+});
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 

@@ -1,3 +1,3 @@
-export * from './components/RouteGuard';
+export * from './components';
 export * from './functions';
 export * from './type';

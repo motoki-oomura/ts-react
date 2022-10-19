@@ -1,22 +1,12 @@
-import { Route } from './type';
-import { IS_DEVELOPMENT } from '@constants/env';
+import { BaseRoute } from './type';
+import { generatePath } from 'react-router-dom';
 
-let routes: Route[] = [];
-
-export const getRoutes = (type?: Route['type']) => {
-    const filterRoutes = routes.filter((r) => IS_DEVELOPMENT || (r.type?.indexOf('_') !== 0 ?? true));
-    if (type === undefined) return [...filterRoutes];
-    return filterRoutes.filter(({ type: t }) => t === type);
-};
-
-export const setTypeRoutes = (type: Route['type'], routeArray: Route[]) => {
-    setRoutes(routeArray.map((r) => ({ type, ...r })));
-};
-
-export const setRoutes = (routeArray: Route[]) => {
-    routes = [...routes, ...routeArray];
-};
-
-export const setRoute = (route: Route) => {
-    routes = [...routes, route];
+export const createRoute = <T extends Record<string, string> = Record<string, string>>(route: BaseRoute) => {
+    const { name, ...routeProps } = route;
+    return {
+        name,
+        ...routeProps,
+        getPath: (params: T) => generatePath(route.path, params),
+        getProps: () => routeProps,
+    };
 };

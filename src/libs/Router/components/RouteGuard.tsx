@@ -1,7 +1,7 @@
 import React, { FC, ReactNode } from 'react';
 import { Navigate } from 'react-router-dom';
 
-type Props = {
+export type RouteGuardProps = {
     initialized: boolean;
     authenticated: boolean | null;
     loader: ReactNode;
@@ -9,7 +9,7 @@ type Props = {
     element: unknown;
 };
 
-const RouteGuard: FC<Props> = (props) => {
+export const RouteGuard: FC<RouteGuardProps> = (props) => {
     const { initialized = true, loader = <></>, authenticated = null, redirectPath, element } = props;
 
     /**
@@ -35,4 +35,3 @@ const RouteGuard: FC<Props> = (props) => {
 
     return null;
 };
-export default RouteGuard;
