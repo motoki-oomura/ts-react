@@ -10,7 +10,10 @@ import { HeadProvider } from '@libs/Head';
 import { initI18n } from '@libs/I18n';
 import i18nJa from '@data/i18n/ja.json';
 import i18nEn from '@data/i18n/en.json';
+import {initMockBrowser} from "./mocks/functions";
 
+
+initMockBrowser();
 initI18n({
     fallbackLng: ['ja', 'en'],
     resources: {

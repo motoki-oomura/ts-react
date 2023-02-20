@@ -2,6 +2,7 @@ import React from 'react';
 import _DemoPageLayout from '@pages/_demo/_DemoPageLayout';
 import { Form } from '@libs/Forms';
 import { z } from 'zod';
+import useApi from "@libs/Api/hooks/useApi";
 
 const schema = z
     .object({
@@ -18,8 +19,11 @@ const schema = z
 type FormData = z.infer<typeof schema>;
 
 const DemoFormSignUpPage: React.FC = () => {
-    const handleSubmit = (data: FormData) => {
+    const { api } = useApi();
+    const handleSubmit = async (data: FormData) => {
         console.log('data', data);
+        const res = await api.post('/signin', data);
+        console.log(res);
     };
 
     return (

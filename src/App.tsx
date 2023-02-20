@@ -16,7 +16,7 @@ function App() {
 
     return (
         <>
-            <ApiProvider config={{}}>
+            <ApiProvider config={{ headers: { 'Content-Type': 'application/json'}}}>
                 <Routes routes={publicRoutes} fallback='ページ読み込み中' />
                 <Routes
                     routes={privateRoutes}

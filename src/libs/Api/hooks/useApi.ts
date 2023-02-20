@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useRef, useState } from 'react';
 import { ApiContextValue, isApiError, Status, useApiContext } from '../index';
-import { Options } from 'ky';
+import {KyResponse, Options} from 'ky';
 import { KyInstance } from 'ky/distribution/types/ky';
 import { Input } from 'ky/distribution/types/options';
 
@@ -34,39 +34,53 @@ const useApi = <T = unknown>({ onError, onUnauthorized, onTimeout, onAbort }: Us
         setLoading(true);
         let data = null;
         abortControllerRef.current = new AbortController();
-        const response = await fn(path, {
-            signal: abortControllerRef.current.signal,
-            ...options,
-        }).catch((e) => {
-            if (e.name === 'AbortError' && onAbort) onAbort(e);
-            return null;
-        });
-        const { ok, status } = response ?? {};
-        if (response && status) {
-            data = await response.json<T>();
-            ok ? setData(data) : setError(data);
-            setStatus(status);
 
-            if (status === Status.Timeout) {
-                (onTimeout ?? onTimeoutGlobal)(data);
-            } else if (status === Status.Unauthorized) {
-                (onUnauthorized ?? onUnauthorizedGlobal)(data);
-            } else if (isApiError(status)) {
-                (onError ?? onErrorGlobal)(data);
+        try {
+            const response = await fn(path, {
+                signal: abortControllerRef.current.signal,
+                ...options,
+            });
+            // .catch((e) => {
+            //     if (e.name === 'AbortError' && onAbort) onAbort(e);
+            //     return null;
+            //
+            // });
+            const { ok, status } = response ?? {};
+            if (response && status) {
+                data = await response.json<T>().catch(e => {
+                    return null;
+                });
+                ok ? setData(data) : setError(data);
+                setStatus(status);
+
+                if (status === Status.Timeout) {
+                    (onTimeout ?? onTimeoutGlobal)(data);
+                } else if (status === Status.Unauthorized) {
+                    (onUnauthorized ?? onUnauthorizedGlobal)(data);
+                } else if (isApiError(status)) {
+                    (onError ?? onErrorGlobal)(data);
+                }
+            } else {
+                setData(null);
+                setStatus(null);
+                setError(null);
             }
-        } else {
-            setData(null);
-            setStatus(null);
-            setError(null);
-        }
-        setLoading(false);
+            setLoading(false);
 
-        return {
-            ok,
-            status: status ?? null,
-            data: status && !isApiError(status) ? data : null,
-            error: status && !isApiError(status) ? null : data,
-        };
+            return {
+                ok,
+                status: status ?? null,
+                data: status && !isApiError(status) ? data : null,
+                error: status && !isApiError(status) ? null : data,
+            };
+        } catch (e) {
+            if (e.name === 'AbortError' && onAbort) {
+                onAbort(e);
+                return null;
+            }
+            return null;
+
+        }
     }, []);
 
     const api = useMemo(() => {

@@ -112,7 +112,11 @@
     "babel-plugin-named-exports-order": "^0.0.2",
     "craco": "^0.0.3",
     "craco-alias": "^3.0.1",
+    "msw": "^0.47.4",
     "prop-types": "^15.8.1",
     "webpack": "^5.74.0"
+  },
+  "msw": {
+    "workerDirectory": "public"
   }
 }
