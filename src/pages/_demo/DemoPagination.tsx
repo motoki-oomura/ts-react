@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import _DemoPageLayout from '@pages/_demo/_DemoPageLayout';
 import usePagination from '@libs/Pagination/hooks/usePagination';
 import useEffectOnce from '@hooks/useEffectOnce';
@@ -8,18 +8,22 @@ const VIEW_COUNT = 20;
 
 const DemoPagination = () => {
     const { setTotalCount, renderPaginate, isViewIndex, onNextPaginate, onPrevPaginate, onPaginate } = usePagination({ viewCount: VIEW_COUNT });
-    const { api, data } = useApi<unknown[]>();
+    const { api, data } = useApi<any[]>();
 
     useEffectOnce(() => {
         (async () => {
             try {
-                const { data } = await api.get('https://api.sampleapis.com/baseball/hitsSingleSeason');
+                await api.get('https://api.sampleapis.com/baseball/hitsSingleSeason');
                 setTotalCount(data?.length ?? 0);
             } catch (e) {
                 console.error('fetchError', e);
             }
         })();
     });
+
+    useEffect(() => {
+        setTotalCount(data?.length ?? 0);
+    }, [data]);
 
     return (
         <_DemoPageLayout>
