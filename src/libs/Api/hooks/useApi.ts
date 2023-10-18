@@ -73,13 +73,14 @@ const useApi = <T = unknown>({ onError, onUnauthorized, onTimeout, onAbort }: Us
                 data: status && !isApiError(status) ? data : null,
                 error: status && !isApiError(status) ? null : data,
             };
-        } catch (e) {
-            if (e.name === 'AbortError' && onAbort) {
-                onAbort(e);
-                return null;
+        } catch (e: unknown) {
+            if (e instanceof Error) {
+                if (e.name === 'AbortError' && onAbort) {
+                    onAbort(e);
+                    return null;
+                }
             }
             return null;
-
         }
     }, []);
 
